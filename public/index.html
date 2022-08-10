@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/main.css">
+    <title>Pokemon</title>
+</head>
+<body>
+    <header>
+        <span class="header-logo">
+            <i class="fa-brands fa-wolf-pack-battalion"></i>
+            <h1>Krloz Medina</h1>
+        </span>
+        <nav>
+            <i class="fa-solid fa-bars"></i>
+        </nav>
+    </header>
+
+    <main>
+        <section class="pokedesk">
+            <div class="cover-pokedesk">
+                <button class="button-cover" onclick="cover('down')">I/O</button>
+                <div class="pokeball">
+                    <div class="pokeball-center"></div>
+                </div>
+            </div>
+
+            <article class="container-pokemon">
+                <h1 id="name-pokemon"></h1>
+                <img id="img-pokemon" alt="pokemon">
+                <section class="container-stats">
+                    <div>
+                        <p>HP</p>
+                        <progress id="hp" class="stat" max="260"></progress>
+                    </div>
+                    <div>
+                        <p>ATTACK</p>
+                        <progress id="attack" class="stat" max="190"></progress>
+                    </div>
+                    <div>
+                        <p>DEFENSE</p>
+                        <progress id="defense" class="stat" max="230"></progress>
+                    </div>
+                    <div>
+                        <p>SPECIAL ATTACK</p>
+                        <progress id="special-attack" class="stat" max="180"></progress>
+                    </div>
+                    <div>
+                        <p>SPECIAL DEFENSE</p>
+                        <progress id="special-defense" class="stat" max="230"></progress>
+                    </div>
+                    <div>
+                        <p>SPEED</p>
+                        <progress id="speed" class="stat" max="160"></progress>
+                    </div>
+                </section>
+            </article>
+
+            <div class="cover-pokedesk" style="transform: rotate(180deg);">
+                <div class="cover-pokedesk">
+                    <div class="container-select" style="transform: rotate(180deg);">
+                        <button class="select-pokemon" onclick="prevPokemon()">◄</button>
+                        <button class="select-pokemon" onclick="nextPokemon()">►</button>
+                    </div>
+                    <div class="pokeball">
+                        <div class="pokeball-center"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ver-mapa">
+            <h1>Recorrer el mapa</h1>
+            <canvas id="mapa"></canvas>
+            <button onmouseup="detener()" onmousedown="mover('left')" >Izquierda</button>
+            <button onmouseup="detener()" onmousedown="mover('up')">Arriba</button>
+            <button onmouseup="detener()" onmousedown="mover('down')">Abajo</button>
+            <button onmouseup="detener()" onmousedown="mover('right')">Derecha</button>
+        </section>
+
+        <button onclick="joinToGame()">Multijugador</button>
+
+        <!-- <section class="list">
+            <nav class="container-select-list">
+                <button class="select-list" onclick="prevList()">↩</button>
+                <button class="select-list" onclick="nextList()">↪</button>
+            </nav>
+            <section class="list-pokemon"></section>
+        </section> -->
+
+        <!-- <section class="pokedesk"></section> -->
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <a href="https://www.linkedin.com/in/carlos-alidio-medina-l%C3%B3pez-62406991/" class="footer-logo">
+                <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+            <a href="https://github.com/KrlozMedina" class="footer-logo">
+                <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/UCwr2Oy0BSvLWbukMAi_Nk7g" class="footer-logo">
+                <i class="fa-brands fa-youtube"></i>
+            </a>
+            <a href="https://twitter.com/Krloz_Medina" class="footer-logo">
+                <i class="fa-brands fa-twitter"></i>
+            </a>
+            <a href="https://www.facebook.com/k.medina16" class="footer-logo">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/krloz_medina/" class="footer-logo">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://www.tiktok.com/@krlozmedina" class="footer-logo">
+                <i class="fa-brands fa-tiktok"></i>
+            </a>
+        </div>
+    </footer>
+    
+    <!-- <script src="./src/pokemon.js"></script> -->
+    <script src="./src/pokedesk.js"></script>
+    <script src="./src/mapa.js"></script>
+    <script src="https://kit.fontawesome.com/1bde3dbc14.js" crossorigin="anonymous"></script>
+</body>
+</html>
