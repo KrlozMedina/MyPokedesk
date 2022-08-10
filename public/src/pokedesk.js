@@ -1,4 +1,4 @@
-const url = 'https://mypokedesk.herokuapp.com/:45434/api/pokemon/';
+const url = 'https://mypokedesk.herokuapp.com/api/pokemon/';
 
 let contador = 0;
 let pokemonSelect = 1;
