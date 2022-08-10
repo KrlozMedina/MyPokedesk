@@ -8,6 +8,8 @@ server.use(express.json())
 
 // Settings
 server.set('port', process.env.PORT || 8080);
+// server.set('port', 8080);
+console.log(server.get('port'))
 server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'ejs')
 

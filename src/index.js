@@ -40,6 +40,11 @@ server.get('/join', (req, res) => {
     res.send(id)
 });
 
+server.get('/port', (req, res) => {
+    res.send(`puerto ${server.get('port')}`)
+    // res.end()
+})
+
 server.get('/api/pokemon/:id', (req, res) => {
     const id = req.params.id || '';
     console.log(id)
