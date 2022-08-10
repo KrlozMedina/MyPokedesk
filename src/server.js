@@ -7,7 +7,7 @@ const server = express();
 server.use(express.json())
 
 // Settings
-server.set('port', 8080);
+server.set('port', process.env.PORT || 8080);
 server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'ejs')
 
