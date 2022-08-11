@@ -1,5 +1,5 @@
-// const URL = 'https://mypokedesk.herokuapp.com';
-const URL = 'http://localhost:8080';
+const URL = 'https://mypokedesk.herokuapp.com';
+// const URL = 'http://localhost:8080';
 const API = '/api/pokemon/';
 
 const pokedesk = document.querySelector(".pokedesk");
