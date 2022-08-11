@@ -37,7 +37,7 @@ server.get('/join', (req, res) => {
 
     res.setHeader('Access-Control-Allow-Origin', '*')
 
-    res.send(id)
+    res.send(players)
 });
 
 server.get('/port', (req, res) => {
