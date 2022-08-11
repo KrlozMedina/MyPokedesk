@@ -1,5 +1,5 @@
-// const URL = 'https://mypokedesk.herokuapp.com';
-const URL = 'http://localhost:8080';
+const URL = 'https://mypokedesk.herokuapp.com';
+// const URL = 'http://localhost:8080';
 const API = '/api/pokemon/';
 
 let contador = 0;
@@ -299,14 +299,13 @@ function selectPokemon(mascota) {
 }
 
 async function getType() {
-    // console.log(URL+'/pokemon/type')
     const res = await fetch(URL+'/pokemon/type')
     const data = await res.json();
-    // console.log(data)
     const type = document.getElementById('type');
-    // console.log(type.value)
     const typeIndex = data.filter(element => element.value === type.value)
-    // console.log(typeIndex)
     indexFilter = typeIndex.map(index => {return index.id})
-    // console.log(indexFilter)
+    if (indexFilter.length !== 0) {
+        getPokemon(indexFilter[0])
+        pokemonSelect = indexFilter[0]
+    }
 }
