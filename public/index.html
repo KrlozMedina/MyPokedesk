@@ -74,10 +74,10 @@
         <section id="ver-mapa">
             <h1>Recorrer el mapa</h1>
             <canvas id="mapa"></canvas>
-            <button onmouseup="detener()" onmousedown="mover('left')" >Izquierda</button>
-            <button onmouseup="detener()" onmousedown="mover('up')">Arriba</button>
-            <button onmouseup="detener()" onmousedown="mover('down')">Abajo</button>
-            <button onmouseup="detener()" onmousedown="mover('right')">Derecha</button>
+            <button onmouseup="detener()" onmousedown="mover('left')" ontouchstart="mover('left')" ontouchend="detener()">Izquierda</button>
+            <button onmouseup="detener()" onmousedown="mover('up')" ontouchstart="mover('up')" ontouchend="detener()">Arriba</button>
+            <button onmouseup="detener()" onmousedown="mover('down')" ontouchstart="mover('down')" ontouchend="detener()">Abajo</button>
+            <button onmouseup="detener()" onmousedown="mover('right')" ontouchstart="mover('right')" ontouchend="detener()">Derecha</button>
         </section>
 
         <button onclick="joinToGame()">Multijugador</button>
