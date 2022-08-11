@@ -1,7 +1,7 @@
 const section = document.getElementById('ver-mapa');
 const mapa = document.getElementById('mapa');
 
-section.style.display = 'flex';
+// section.style.display = 'flex';
 
 let lienzo = mapa.getContext('2d');
 // lienzo.fillRect(5, 15, 20, 40);
@@ -22,7 +22,8 @@ let velocidadY = 0;
 intervalo = setInterval(pintar, 50)
 
 let background = new Image();
-background.src = '../assets/mokemap.png'
+// background.src = 'https://raw.githubusercontent.com/platzi/curso-programacion-basica/85-prueba-fuego/programar/mokepon/public/assets/mokemap.png'
+background.src = './assets/image/mokemap.png'
 background.style.width = mapa.width;
 background.style.height = mapa.height;
 

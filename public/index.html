@@ -10,23 +10,26 @@
 <body>
     <header>
         <span class="header-logo">
-            <i class="fa-brands fa-wolf-pack-battalion"></i>
+            <!-- <i class="fa-brands fa-wolf-pack-battalion"></i> -->
+            <img src="./assets/image/Logo.png" alt="">
             <h1>Krloz Medina</h1>
         </span>
+
+        <h1 class="title-app">POKEMON</h1>
+
         <nav>
             <i class="fa-solid fa-bars"></i>
         </nav>
     </header>
 
     <main>
-        <h1 class="title-app">POKEMON</h1>
 
         <section class="container-config">
-            <h2>Configuracion</h2>
-            <input type="text" placeholder="Nombre del pokemon">
+            <h2>Filtros</h2>
+            <!-- <input type="text" placeholder="Nombre del pokemon"> -->
             <div class="config-generation">
                 <label for="generation">Generacion: </label>
-                <select name="generation" onchange="">
+                <select name="generation" id="generation" onchange="getGeneration()">
                     <option value="all" selected>Todas</option>
                     <option value="1ra">1ra generacion</option>
                     <option value="2da">2da generacion</option>
@@ -36,31 +39,30 @@
                     <option value="6ta">6ta generacion</option>
                     <option value="7ma">7ma generacion</option>
                     <option value="8va">8va generacion</option>
-                    <option value="9na">9na generacion</option>
                 </select>
             </div>
             <div class="config-type">
                 <label for="type">Tipo: </label>
                 <select name="type" id="type" onchange="getType()">
                     <option value="all" selected>Todas</option>
-                    <option value="normal">Normal</option>
-                    <option value="fire">Fuego</option>
+                    <option value="steel">Acero</option>
                     <option value="water">Agua</option>
-                    <option value="grass">Planta</option>
+                    <option value="bug">Bicho</option>
+                    <option value="dragon">Dragon</option>
                     <option value="electric">Electrico</option>
+                    <option value="ghost">Fantasma</option>
+                    <option value="fire">Fuego</option>
+                    <option value="fairy">Hada</option>
                     <option value="ice">Hielo</option>
                     <option value="fighting">Lucha</option>
-                    <option value="poison">Veneno</option>
-                    <option value="ground">Tierra</option>
-                    <option value="flying">Volador</option>
+                    <option value="normal">Normal</option>
+                    <option value="grass">Planta</option>
                     <option value="psychic">Psiquico</option>
-                    <option value="bug">Bicho</option>
                     <option value="rock">Roca</option>
-                    <option value="ghost">Fantasma</option>
-                    <option value="dragon">Dragon</option>
                     <option value="dark">Siniestro</option>
-                    <option value="steel">Acero</option>
-                    <option value="fairy">Hada</option>
+                    <option value="ground">Tierra</option>
+                    <option value="poison">Veneno</option>
+                    <option value="flying">Volador</option>
                 </select>
                 
             </div>
@@ -120,14 +122,23 @@
             </div>
         </section>
 
-        <!-- <section id="ver-mapa">
+        <section class="toPlay">
+            <h2>Vamos a jugar</h2>
+            <input type="text" placeholder="Nickname">
+            <div>
+                <button>Aventura</button>
+                <button>Multijugador</button>
+            </div>
+        </section>
+
+        <section id="ver-mapa">
             <h1>Recorrer el mapa</h1>
             <canvas id="mapa"></canvas>
             <button onmouseup="detener()" onmousedown="mover('left')" ontouchstart="mover('left')" ontouchend="detener()">Izquierda</button>
             <button onmouseup="detener()" onmousedown="mover('up')" ontouchstart="mover('up')" ontouchend="detener()">Arriba</button>
             <button onmouseup="detener()" onmousedown="mover('down')" ontouchstart="mover('down')" ontouchend="detener()">Abajo</button>
             <button onmouseup="detener()" onmousedown="mover('right')" ontouchstart="mover('right')" ontouchend="detener()">Derecha</button>
-        </section> -->
+        </section>
 
         <!-- <button onclick="joinToGame()">Multijugador</button> -->
 
@@ -146,31 +157,38 @@
         <div class="footer-container">
             <a href="https://www.linkedin.com/in/carlos-alidio-medina-l%C3%B3pez-62406991/" class="footer-logo">
                 <i class="fa-brands fa-linkedin-in"></i>
+                <img src="./assets/icons/LinkedIn.png" alt="">
             </a>
             <a href="https://github.com/KrlozMedina" class="footer-logo">
                 <i class="fa-brands fa-github"></i>
+                <img src="./assets/icons/GitHub.png" alt="">
             </a>
             <a href="https://www.youtube.com/channel/UCwr2Oy0BSvLWbukMAi_Nk7g" class="footer-logo">
                 <i class="fa-brands fa-youtube"></i>
+                <img src="./assets/icons/youtube.png" alt="">
             </a>
             <a href="https://twitter.com/Krloz_Medina" class="footer-logo">
                 <i class="fa-brands fa-twitter"></i>
+                <img src="./assets/icons/Twitter.png" alt="">
             </a>
             <a href="https://www.facebook.com/k.medina16" class="footer-logo">
                 <i class="fa-brands fa-facebook-f"></i>
+                <img src="./assets/icons/Facebook.png" alt="">
             </a>
             <a href="https://www.instagram.com/krloz_medina/" class="footer-logo">
                 <i class="fa-brands fa-instagram"></i>
+                <img src="./assets/icons/Instagram.png" alt="">
             </a>
             <a href="https://www.tiktok.com/@krlozmedina" class="footer-logo">
                 <i class="fa-brands fa-tiktok"></i>
+                <img src="./assets/icons/TikTok.png" alt="">
             </a>
         </div>
     </footer>
     
     <!-- <script src="./src/pokemon.js"></script> -->
     <script src="./src/pokedesk.js"></script>
-    <!-- <script src="./src/mapa.js"></script> -->
-    <script src="https://kit.fontawesome.com/1bde3dbc14.js" crossorigin="anonymous"></script>
+    <script src="./src/mapa.js"></script>
+    <!-- <script src="https://kit.fontawesome.com/e00844d238.js" crossorigin="anonymous"></script> -->
 </body>
 </html>

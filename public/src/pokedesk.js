@@ -1,20 +1,34 @@
-const URL = 'https://mypokedesk.herokuapp.com';
-// const URL = 'http://localhost:8080';
+// const URL = 'https://mypokedesk.herokuapp.com';
+const URL = 'http://localhost:8080';
 const API = '/api/pokemon/';
+
+const pokedesk = document.querySelector(".pokedesk");
+const container = document.querySelector(".container-pokemon");
+const button = document.querySelector(".button-cover");
+const name = document.getElementById('name-pokemon');
+const img = document.getElementById('img-pokemon');
+const containerImg = document.querySelector('.container-img')
+const hp = document.getElementById('hp');
+const attack = document.getElementById('attack');
+const defense = document.getElementById('defense');
+const specialAttack = document.getElementById('special-attack');
+const specialDefense = document.getElementById('special-defense');
+const speed = document.getElementById('speed');
+const type = document.getElementById('type');
+const generation = document.getElementById('generation');
+const containerStats = document.querySelector('.container-stats')
 
 let contador = 0;
 let pokemonSelect = 1;
 let indexSelect = -1
 let idLista = 0;
 let cantidad = 0;
-// let id = 376 pokemon sin imagen;
 let indexFilter = [];
+let minValue = 1;
+let maxValue = 905;
 
 function cover(state){
-    const pokedesk = document.querySelector(".pokedesk");
-    const container = document.querySelector(".container-pokemon");
-    const button = document.querySelector(".button-cover");
-    currentInterval = setInterval(() => {
+    let currentInterval = setInterval(() => {
         if(state === 'down') {
             if(contador < 400) {
                 contador++;
@@ -32,17 +46,10 @@ function cover(state){
         }
         pokedesk.style.gap = `${contador}px`;
         container.style.height = `${contador}px`
+        containerStats.style.height = `${contador / 4}px`
     }, 0.1);
     getPokemon(pokemonSelect);
 }
-
-// function pantalla() {
-//     const list = document.querySelector(".list-pokemon");
-//     let width = list.clientWidth;
-//     let height = list.clientHeight;
-//     cantidad = Math.floor(width / 180) * Math.floor(height / 220);
-//     listPokemon(cantidad, idLista)
-// }
 
 function typeColor (type) {
     switch (type) {
@@ -116,13 +123,12 @@ function prevPokemon(){
         } else {
             indexSelect = maxIndex
         }
-        // console.log(indexFilter[indexSelect], indexSelect)
         pokemonSelect = indexFilter[indexSelect]
     } else {
-        if(pokemonSelect > 1) {
+        if(pokemonSelect > minValue) {
             pokemonSelect--;
         } else {
-            pokemonSelect = 905;
+            pokemonSelect = maxValue;
         }
     }
     getPokemon(pokemonSelect);
@@ -138,49 +144,21 @@ function nextPokemon(){
         }
         pokemonSelect = indexFilter[indexSelect]
     } else {
-        if(pokemonSelect < 905) {
+        if(pokemonSelect < maxValue) {
             pokemonSelect++;
         } else {
-            pokemonSelect = 1;
+            pokemonSelect = minValue;
         }
     }
-    // console.log(indexFilter[maxIndex])
-    // console.log(pokemonSelect, indexSelect, maxIndex)
     getPokemon(pokemonSelect);
-}
-
-function prevList() {
-    if(idLista+1 > cantidad) {
-        idLista = idLista - cantidad;
-    }
-    listPokemon(cantidad, idLista)
-}
-
-function nextList() {
-    if(idLista+cantidad < 905){
-        idLista = idLista + cantidad;
-    }
-    listPokemon(cantidad, idLista)
-}
-
-function pokemon(id){
-    getPokemon(id)
-    return pokemonSelect = id;
 }
 
 async function getPokemon(id) {
     const response = await fetch(URL+API+id);
     const data = await response.json();
-    // console.log(data);
-
-    // id = id - 1;
-    
-    // console.log(pokemons[id])
-
-    const name = document.getElementById('name-pokemon');
-    name.textContent = `${id}.${data.name.toUpperCase()}`;
-    
+    const type = data.type;
     let num
+
     if (id < 10) {
         num = `00${id}`
     } else if (id < 100) {
@@ -189,123 +167,185 @@ async function getPokemon(id) {
         num = id
     }
 
-    const img = document.getElementById('img-pokemon');
-    // img.src = data.image;
+    typeColor(type);
+    
+    name.textContent = `${id} ${data.name.toUpperCase()}`;
     img.src = `https://assets.pokemon.com/assets/cms2/img/pokedex/full//${num}.png`
     img.alt = data.name;
-    
-    // const type = data.types.map(type => {
-    //     return type.type.name;
-    // });
-
-    // console.log(data.types)
-    const type = data.type;
-    // console.log('type', type);
-
-    typeColor(type);
-    const containerImg = document.querySelector('.container-img')
     containerImg.style.backgroundColor = color;
-    
-    const hp = document.getElementById('hp');
-    const attack = document.getElementById('attack');
-    const defense = document.getElementById('defense');
-    const specialAttack = document.getElementById('special-attack');
-    const specialDefense = document.getElementById('special-defense');
-    const speed = document.getElementById('speed');
-    // console.log('data', data.stats)
     [hp.value, attack.value, defense.value, specialAttack.value, specialDefense.value, speed.value] = data.stats.map(stat => {return stat});
 
-    selectPokemon(data.name)
-}
-
-async function getListPokemon(id) {
-    const res = await fetch(URL+API+id);
-    const data = await res.json();
-
-    // console.log(data)
-
-    const type = data.types.map(type => {
-        return type.type.name;
-    });
-
-    typeColor(type[0])
-
-    const section = document.querySelector('.list-pokemon');
-
-    const article = document.createElement('article');
-    article.classList = 'article-list';
-
-    article.setAttribute('onclick', `pokemon(${id})`);
-    article.style.backgroundColor = color;
-    section.appendChild(article);
-
-    const name = document.createElement('h1');
-    name.classList = 'name-list';
-    name.textContent = `${data.name.toUpperCase()}`;
-    name.style.backgroundColor = color;
-    article.appendChild(name);
-
-    const img = document.createElement('img');
-    img.classList = 'img-list';
-    img.src = data.sprites.front_default;
-    img.alt = data.name;
-    article.appendChild(img);
-}
-
-async function listPokemon(dimension, id){
-    const section = document.querySelector('.list-pokemon');
-    section.innerHTML = '';
-
-    if(dimension > 9) {
-        dimension = 9
-    }
-
-    for (let i = 1; i <= dimension; i++) {
-        await getListPokemon(id + i)
-    }
-}
-
-// pantalla();
-cover('down');
-
-window.onresize = function () {
-    // pantalla()
-};
-
-
-
-
-let playerId = null 
-
-async function joinToGame() {
-    const res = await fetch(`${URL}/join`)
-    if (res.ok) { 
-        playerId = await res.text()
-        // console.log(id)
-    }
-}
-
-function selectPokemon(mascota) {
-    fetch(`${URL}/pokemon/${playerId}`, {
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            pokemon: mascota
-        })
-    });
-
+    // selectPokemon(data.name)
 }
 
 async function getType() {
-    const res = await fetch(URL+'/pokemon/type')
+    const configGeneration = document.querySelector('.config-generation')
+    configGeneration.style.display = 'none'
+
+    const res = await fetch(URL+API+'filter/type')
     const data = await res.json();
-    const type = document.getElementById('type');
+
     const typeIndex = data.filter(element => element.value === type.value)
     indexFilter = typeIndex.map(index => {return index.id})
     if (indexFilter.length !== 0) {
-        getPokemon(indexFilter[0])
         pokemonSelect = indexFilter[0]
+        getPokemon(pokemonSelect)
+        indexSelect = 0
+    } else {
+        configGeneration.style.display = 'flex'
     }
 }
+
+function getGeneration() {
+    const configType = document.querySelector('.config-type')
+    configType.style.display = 'none';
+    console.log(generation.value)
+    switch (generation.value) {
+        case '1ra':
+            minValue = 1;
+            lenghtPokemon = 151;
+            break;
+        case '2da':
+            minValue = 152;
+            lenghtPokemon = 100;
+            break
+        case '3ra':
+            minValue = 252;
+            lenghtPokemon = 135;
+            break;
+        case '4ta':
+            minValue = 387;
+            lenghtPokemon = 107;
+            break
+        case '5ta':
+            minValue = 494;
+            lenghtPokemon = 156;
+            break
+        case '6ta':
+            minValue = 650;
+            lenghtPokemon = 71;
+            break;
+        case '7ma':
+            minValue = 721;
+            lenghtPokemon = 88;
+            break;
+        case '8va':
+            minValue = 809;
+            lenghtPokemon = 97;
+            break;
+        default:
+            minValue = 1;
+            lenghtPokemon = 905;
+            configType.style.display = 'flex'
+            break
+    }
+    maxValue = minValue + lenghtPokemon - 1;
+    pokemonSelect = minValue
+    getType();
+    getPokemon(pokemonSelect)
+}
+
+cover('down');
+
+// function pantalla() {
+//     const list = document.querySelector(".list-pokemon");
+//     let width = list.clientWidth;
+//     let height = list.clientHeight;
+//     cantidad = Math.floor(width / 180) * Math.floor(height / 220);
+//     listPokemon(cantidad, idLista)
+// }
+
+// function prevList() {
+//     if(idLista+1 > cantidad) {
+//         idLista = idLista - cantidad;
+//     }
+//     listPokemon(cantidad, idLista)
+// }
+
+// function nextList() {
+//     if(idLista+cantidad < 905){
+//         idLista = idLista + cantidad;
+//     }
+//     listPokemon(cantidad, idLista)
+// }
+
+// function pokemon(id){
+//     getPokemon(id)
+//     return pokemonSelect = id;
+// }
+
+// async function getListPokemon(id) {
+//     const res = await fetch(URL+API+id);
+//     const data = await res.json();
+
+//     // console.log(data)
+
+//     const type = data.types.map(type => {
+//         return type.type.name;
+//     });
+
+//     typeColor(type[0])
+
+//     const section = document.querySelector('.list-pokemon');
+
+//     const article = document.createElement('article');
+//     article.classList = 'article-list';
+
+//     article.setAttribute('onclick', `pokemon(${id})`);
+//     article.style.backgroundColor = color;
+//     section.appendChild(article);
+
+//     const name = document.createElement('h1');
+//     name.classList = 'name-list';
+//     name.textContent = `${data.name.toUpperCase()}`;
+//     name.style.backgroundColor = color;
+//     article.appendChild(name);
+
+//     const img = document.createElement('img');
+//     img.classList = 'img-list';
+//     img.src = data.sprites.front_default;
+//     img.alt = data.name;
+//     article.appendChild(img);
+// }
+
+// async function listPokemon(dimension, id){
+//     const section = document.querySelector('.list-pokemon');
+//     section.innerHTML = '';
+
+//     if(dimension > 9) {
+//         dimension = 9
+//     }
+
+//     for (let i = 1; i <= dimension; i++) {
+//         await getListPokemon(id + i)
+//     }
+// }
+
+// pantalla();
+
+// window.onresize = function () {
+//     // pantalla()
+// };
+
+// let playerId = null 
+
+// async function joinToGame() {
+//     const res = await fetch(`${URL}/join`)
+//     if (res.ok) { 
+//         playerId = await res.text()
+//         // console.log(id)
+//     }
+// }
+
+// function selectPokemon(mascota) {
+//     fetch(`${URL}/pokemon/${playerId}`, {
+//         method: 'post',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//             pokemon: mascota
+//         })
+//     });
+
+// }
