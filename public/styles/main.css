@@ -274,7 +274,7 @@ input{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 1rem;
+    gap: 3rem;
 }
 
 .toPlay h2{
@@ -283,10 +283,21 @@ input{
     text-align: center;
 }
 
+.toPlay p{
+    width: 100%;
+    font-size: 1.5rem;
+    color: rgb(61, 59, 59);
+    text-align: center;
+    margin: 2px auto;
+}
+
 .toPlay div{
     width: 100%;
     display: inline-flex;
-    justify-content: space-around;
+    /* justify-content: space-around; */
+    color: black;
+    margin: 0 auto;
+    font-size: 2rem;
 }
 
 .toPlay button{
@@ -294,9 +305,12 @@ input{
     height: 3rem;
     padding: 5px;
     font-size: 1.5rem;
+    margin: 0 auto;
 }
 
 #ver-mapa{
+    width: 100%;
+    max-width: 100rem;
     display: none;
     flex-direction: column;
     align-items: center;
@@ -305,9 +319,25 @@ input{
 }
 
 #mapa{
-    border: solid 2px var(--color-border);
-    width: 74rem;
-    height: 42em;
+    width: 100%;
+    border-radius: 25px;
+    border: 2px solid black;
+    border-style: groove;
+}
+
+.container-mapa{
+    width: 95%;
+}
+
+#ver-mapa button{
+    width: 3rem;
+    height: 3rem;
+    font-size: 3rem;
+    text-align: center;
+    border: none;
+    background-color: var(--color-background-secundary);
+    cursor: pointer;
+    margin: 0 8px;
 }
 
 .list{

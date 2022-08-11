@@ -17,6 +17,10 @@ const speed = document.getElementById('speed');
 const type = document.getElementById('type');
 const generation = document.getElementById('generation');
 const containerStats = document.querySelector('.container-stats')
+const configGeneration = document.querySelector('.config-generation')
+const configType = document.querySelector('.config-type')
+
+let pokemon;
 
 let contador = 0;
 let pokemonSelect = 1;
@@ -175,11 +179,10 @@ async function getPokemon(id) {
     containerImg.style.backgroundColor = color;
     [hp.value, attack.value, defense.value, specialAttack.value, specialDefense.value, speed.value] = data.stats.map(stat => {return stat});
 
-    // selectPokemon(data.name)
+    pokemon = data;
 }
 
 async function getType() {
-    const configGeneration = document.querySelector('.config-generation')
     configGeneration.style.display = 'none'
 
     const res = await fetch(URL+API+'filter/type')
@@ -197,7 +200,6 @@ async function getType() {
 }
 
 function getGeneration() {
-    const configType = document.querySelector('.config-type')
     configType.style.display = 'none';
     console.log(generation.value)
     switch (generation.value) {
