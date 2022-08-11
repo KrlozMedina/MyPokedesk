@@ -1,10 +1,14 @@
-const url = 'https://mypokedesk.herokuapp.com/api/pokemon/';
+// const URL = 'https://mypokedesk.herokuapp.com';
+const URL = 'http://localhost:8080';
+const API = '/api/pokemon/';
 
 let contador = 0;
 let pokemonSelect = 1;
+let indexSelect = -1
 let idLista = 0;
 let cantidad = 0;
 // let id = 376 pokemon sin imagen;
+let indexFilter = [];
 
 function cover(state){
     const pokedesk = document.querySelector(".pokedesk");
@@ -42,84 +46,106 @@ function cover(state){
 
 function typeColor (type) {
     switch (type) {
-        case 'grass':
-            color = 'rgba(0, 128, 0, 0.250)'
+        case 'normal':
+            color = 'rgba(146, 155, 164, 0.25)'
             break;
         case 'fire':
-            color = 'rgba(128, 0, 0, 0.250)'
+            color = 'rgba(255, 151, 66, 0.25)'
             break;
         case 'water':
-            color = 'rgba(0, 0, 128, 0.250)'
+            color = 'rgba(50, 147, 221, 0.25)'
             break;
-        case 'bug':
-            color = 'rgba(0, 128, 0, 0.250)'
-            break;
-        case 'normal':
-            color = 'rgba(64, 64, 64, 0.250)'
-            break;
-        case 'poison':
-            color = 'rgba(128, 0, 128, 0.250)'
+        case 'grass':
+            color = 'rgba(49, 193, 73, 0.25)'
             break;
         case 'electric':
-            color = 'rgba(255, 255, 0, 0.250)'
-            break;
-        case 'ground':
-            color = 'rgba(165, 42, 42, 0.250)'
-            break;
-        case 'fairy':
-            color = 'rgba(255, 192, 203, 0.250)'
-            break;
-        case 'fighting':
-            color = 'rgba(222, 184, 135, 0.250)'
-            break;
-        case 'psychic':
-            color = 'rgba(218, 165, 32, 0.250)'
-            break;
-        case 'rock':
-            color = 'rgba(128, 128, 128, 0.250)'
-            break;
-        case 'ghost':
-            color = 'rgba(105, 105, 105, 0.250)'
+            color = 'rgba(252, 210, 0, 0.25)'
             break;
         case 'ice':
-            color = 'rgba(100, 148, 237, 0.250)'
+            color = 'rgba(75, 210, 192, 0.25)'
             break;
-        case 'dragon':
-            color = 'rgba(184, 135, 11, 0.250)'
+        case 'fighting':
+            color = 'rgba(225, 44, 107, 0.25)'
             break;
-        case 'dark':
-            color = 'rgba(0, 0, 0, 0.250)'
+        case 'poison':
+            color = 'rgba(182, 103, 206, 0.25)'
             break;
-        case 'steel':
-            color = 'rgba(192, 192, 192, 0.250)'
+        case 'ground':
+            color = 'rgba(233, 115, 51, 0.25)'
             break;
         case 'flying':
-            color = 'rgba(100, 148, 237, 0.250)'
+            color = 'rgba(138, 172, 228, 0.25)'
+            break;
+        case 'psychic':
+            color = 'rgba(255, 102, 120, 0.25)'
+            break;
+        case 'bug':
+            color = 'rgba(131, 197, 0, 0.25)'
+            break;
+        case 'rock':
+            color = 'rgba(200, 183, 134, 0.25)'
+            break;
+        case 'ghost':
+            color = 'rgba(74, 105, 179, 0.25)'
+            break;
+        case 'dragon':
+            color = 'rgba(0, 111, 202, 0.25)'
+            break;
+        case 'dark':
+            color = 'rgba(89, 83, 101, 0.25)'
+            break;
+        case 'steel':
+            color = 'rgba(90, 143, 163, 0.25)'
+            break;
+        case 'fairy':
+            color = 'rgba(251, 138, 236, 0.25)'
             break;
         default:
             color = 'white'
+            console.log(type)
             console.log(`Falta agregar case para ${type} con id ${id}`)
             break;
     }
 }
 
 function prevPokemon(){
-    if(pokemonSelect > 1) {
-        pokemonSelect--;
+    const maxIndex = indexFilter.length - 1;
+    if (maxIndex + 1 !== 0) {
+        if (pokemonSelect > indexFilter[0]) {
+            indexSelect--;
+        } else {
+            indexSelect = maxIndex
+        }
+        // console.log(indexFilter[indexSelect], indexSelect)
+        pokemonSelect = indexFilter[indexSelect]
     } else {
-        // if(pokemons.length == 905) {
+        if(pokemonSelect > 1) {
+            pokemonSelect--;
+        } else {
             pokemonSelect = 905;
-        // }
+        }
     }
     getPokemon(pokemonSelect);
 }
 
 function nextPokemon(){
-    if(pokemonSelect < 905) {
-        pokemonSelect++;
+    const maxIndex = indexFilter.length - 1;
+    if (maxIndex + 1 !== 0 ) {
+        if (pokemonSelect < indexFilter[maxIndex] && indexSelect <= maxIndex) {
+            indexSelect++
+        } else {
+            indexSelect = 0;
+        }
+        pokemonSelect = indexFilter[indexSelect]
     } else {
-        pokemonSelect = 1;
+        if(pokemonSelect < 905) {
+            pokemonSelect++;
+        } else {
+            pokemonSelect = 1;
+        }
     }
+    // console.log(indexFilter[maxIndex])
+    // console.log(pokemonSelect, indexSelect, maxIndex)
     getPokemon(pokemonSelect);
 }
 
@@ -143,7 +169,7 @@ function pokemon(id){
 }
 
 async function getPokemon(id) {
-    const response = await fetch(url+id);
+    const response = await fetch(URL+API+id);
     const data = await response.json();
     // console.log(data);
 
@@ -154,8 +180,18 @@ async function getPokemon(id) {
     const name = document.getElementById('name-pokemon');
     name.textContent = `${id}.${data.name.toUpperCase()}`;
     
+    let num
+    if (id < 10) {
+        num = `00${id}`
+    } else if (id < 100) {
+        num = `0${id}`
+    } else {
+        num = id
+    }
+
     const img = document.getElementById('img-pokemon');
-    img.src = data.image;
+    // img.src = data.image;
+    img.src = `https://assets.pokemon.com/assets/cms2/img/pokedex/full//${num}.png`
     img.alt = data.name;
     
     // const type = data.types.map(type => {
@@ -167,8 +203,8 @@ async function getPokemon(id) {
     // console.log('type', type);
 
     typeColor(type);
-
-    img.style.backgroundColor = color;
+    const containerImg = document.querySelector('.container-img')
+    containerImg.style.backgroundColor = color;
     
     const hp = document.getElementById('hp');
     const attack = document.getElementById('attack');
@@ -183,7 +219,7 @@ async function getPokemon(id) {
 }
 
 async function getListPokemon(id) {
-    const res = await fetch(url+id);
+    const res = await fetch(URL+API+id);
     const data = await res.json();
 
     // console.log(data)
@@ -242,7 +278,7 @@ window.onresize = function () {
 let playerId = null 
 
 async function joinToGame() {
-    const res = await fetch('https://mypokedesk.herokuapp.com/join')
+    const res = await fetch(`${URL}/join`)
     if (res.ok) { 
         playerId = await res.text()
         // console.log(id)
@@ -250,7 +286,7 @@ async function joinToGame() {
 }
 
 function selectPokemon(mascota) {
-    fetch(`https://mypokedesk.herokuapp.com/pokemon/${playerId}`, {
+    fetch(`${URL}/pokemon/${playerId}`, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
@@ -260,4 +296,17 @@ function selectPokemon(mascota) {
         })
     });
 
+}
+
+async function getType() {
+    // console.log(URL+'/pokemon/type')
+    const res = await fetch(URL+'/pokemon/type')
+    const data = await res.json();
+    // console.log(data)
+    const type = document.getElementById('type');
+    // console.log(type.value)
+    const typeIndex = data.filter(element => element.value === type.value)
+    // console.log(typeIndex)
+    indexFilter = typeIndex.map(index => {return index.id})
+    // console.log(indexFilter)
 }

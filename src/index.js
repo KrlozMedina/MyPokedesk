@@ -68,4 +68,17 @@ server.post('/pokemon/:playerId', (req, res) => {
     res.end();
 })
 
+server.get('/pokemon/:dat', (req, res) => {
+    // console.log(pokemons.length)
+    const dat = req.params.dat || ''
+    const datos = pokemons.map(pokemon => {
+        return {
+            id: pokemon.id,
+            value: pokemon[`${dat}`]
+        };
+    })
+    // console.log(names)
+    res.send(datos)
+})
+
 main();

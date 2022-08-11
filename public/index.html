@@ -19,6 +19,53 @@
     </header>
 
     <main>
+        <h1 class="title-app">POKEMON</h1>
+
+        <section class="container-config">
+            <h2>Configuracion</h2>
+            <input type="text" placeholder="Nombre del pokemon">
+            <div class="config-generation">
+                <label for="generation">Generacion: </label>
+                <select name="generation" onchange="">
+                    <option value="all" selected>Todas</option>
+                    <option value="1ra">1ra generacion</option>
+                    <option value="2da">2da generacion</option>
+                    <option value="3ra">3ra generacion</option>
+                    <option value="4ta">4ta generacion</option>
+                    <option value="5ta">5ta generacion</option>
+                    <option value="6ta">6ta generacion</option>
+                    <option value="7ma">7ma generacion</option>
+                    <option value="8va">8va generacion</option>
+                    <option value="9na">9na generacion</option>
+                </select>
+            </div>
+            <div class="config-type">
+                <label for="type">Tipo: </label>
+                <select name="type" id="type" onchange="getType()">
+                    <option value="all" selected>Todas</option>
+                    <option value="normal">Normal</option>
+                    <option value="fire">Fuego</option>
+                    <option value="water">Agua</option>
+                    <option value="grass">Planta</option>
+                    <option value="electric">Electrico</option>
+                    <option value="ice">Hielo</option>
+                    <option value="fighting">Lucha</option>
+                    <option value="poison">Veneno</option>
+                    <option value="ground">Tierra</option>
+                    <option value="flying">Volador</option>
+                    <option value="psychic">Psiquico</option>
+                    <option value="bug">Bicho</option>
+                    <option value="rock">Roca</option>
+                    <option value="ghost">Fantasma</option>
+                    <option value="dragon">Dragon</option>
+                    <option value="dark">Siniestro</option>
+                    <option value="steel">Acero</option>
+                    <option value="fairy">Hada</option>
+                </select>
+                
+            </div>
+        </section>
+
         <section class="pokedesk">
             <div class="cover-pokedesk">
                 <button class="button-cover" onclick="cover('down')">I/O</button>
@@ -29,7 +76,9 @@
 
             <article class="container-pokemon">
                 <h1 id="name-pokemon"></h1>
-                <img id="img-pokemon" alt="pokemon">
+                <div class="container-img">
+                    <img id="img-pokemon" alt="pokemon">
+                </div>
                 <section class="container-stats">
                     <div>
                         <p>HP</p>
@@ -71,16 +120,16 @@
             </div>
         </section>
 
-        <section id="ver-mapa">
+        <!-- <section id="ver-mapa">
             <h1>Recorrer el mapa</h1>
             <canvas id="mapa"></canvas>
             <button onmouseup="detener()" onmousedown="mover('left')" ontouchstart="mover('left')" ontouchend="detener()">Izquierda</button>
             <button onmouseup="detener()" onmousedown="mover('up')" ontouchstart="mover('up')" ontouchend="detener()">Arriba</button>
             <button onmouseup="detener()" onmousedown="mover('down')" ontouchstart="mover('down')" ontouchend="detener()">Abajo</button>
             <button onmouseup="detener()" onmousedown="mover('right')" ontouchstart="mover('right')" ontouchend="detener()">Derecha</button>
-        </section>
+        </section> -->
 
-        <button onclick="joinToGame()">Multijugador</button>
+        <!-- <button onclick="joinToGame()">Multijugador</button> -->
 
         <!-- <section class="list">
             <nav class="container-select-list">
@@ -121,7 +170,7 @@
     
     <!-- <script src="./src/pokemon.js"></script> -->
     <script src="./src/pokedesk.js"></script>
-    <script src="./src/mapa.js"></script>
+    <!-- <script src="./src/mapa.js"></script> -->
     <script src="https://kit.fontawesome.com/1bde3dbc14.js" crossorigin="anonymous"></script>
 </body>
 </html>
