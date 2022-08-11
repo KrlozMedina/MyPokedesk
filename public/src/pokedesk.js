@@ -242,7 +242,7 @@ window.onresize = function () {
 let playerId = null 
 
 async function joinToGame() {
-    const res = await fetch('http://localhost:8080/join')
+    const res = await fetch('https://mypokedesk.herokuapp.com/join')
     if (res.ok) { 
         playerId = await res.text()
         // console.log(id)
@@ -250,7 +250,7 @@ async function joinToGame() {
 }
 
 function selectPokemon(mascota) {
-    fetch(`http://localhost:8080/pokemon/${playerId}`, {
+    fetch(`https://mypokedesk.herokuapp.com/pokemon/${playerId}`, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
