@@ -4,7 +4,7 @@
   "description": "Aplicativo para el uso de PokeAPI",
   "main": "src/server.js",
   "scripts": {
-    "build": "node src/index.js"
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
