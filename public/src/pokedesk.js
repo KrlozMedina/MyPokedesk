@@ -1,4 +1,5 @@
-const URL = 'https://mypokedesk.herokuapp.com';
+// const URL = 'https://mypokedesk.herokuapp.com';
+const URL = 'https://pokemon-32ua.onrender.com';
 // const URL = 'http://localhost:8080';
 const API = '/api/pokemon/';
 
